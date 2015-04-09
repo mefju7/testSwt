@@ -42,6 +42,8 @@ public class TestWindow extends Shell {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
+	
+	// this is a comment that should stay!
 	protected DataBindingContext initDataBindings() {
 		
 		DataBindingContext bindingContext = new DataBindingContext();
