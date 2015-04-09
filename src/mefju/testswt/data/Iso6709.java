@@ -3,6 +3,7 @@ package mefju.testswt.data;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -36,6 +37,7 @@ public class Iso6709 {
 	private static final String MinusSign= "-";
 	
 	public static List<GeoPoint> parse(String s)
+
 	{
 		List<GeoPoint> gpList=new ArrayList<>();
 		Matcher m = pattern.matcher(s);
@@ -105,5 +107,14 @@ public class Iso6709 {
 			}
 		}
 		return gpList;
+	}
+
+	public static String print(double latitude, double longitude)
+	{
+		StringBuilder sb=new StringBuilder();
+		Formatter formatter = new Formatter(sb, Locale.US);
+		formatter.format("%+010.6f%+011.6f/",latitude,longitude);
+		formatter.close();
+		return sb.toString();
 	}
 }

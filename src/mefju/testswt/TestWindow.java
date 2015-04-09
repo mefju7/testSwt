@@ -1,13 +1,17 @@
 package mefju.testswt;
 
+import mefju.testswt.data.GeoM2TConverter;
+import mefju.testswt.data.GeoT2MConverter;
+
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.PojoProperties;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
-import org.eclipse.core.databinding.beans.PojoProperties;
 
 public class TestWindow extends Shell {
 	@SuppressWarnings("unused")
@@ -15,7 +19,8 @@ public class TestWindow extends Shell {
 
 	private TestData myData;
 	
-	private Text text;
+	private Text firstTextTrial;
+	private Text geoText;
 
 	public TestWindow(Display display) throws Exception {
 		
@@ -32,8 +37,11 @@ public class TestWindow extends Shell {
 		setSize(800, 600);
 		setLayout(null);
 		
-		text = new Text(this, SWT.BORDER);
-		text.setBounds(68, 62, 281, 71);
+		firstTextTrial = new Text(this, SWT.BORDER);
+		firstTextTrial.setBounds(68, 62, 264, 36);
+		
+		geoText = new Text(this, SWT.BORDER);
+		geoText.setBounds(66, 128, 406, 21);
 		m_bindingContext = initDataBindings();
 		
 	}
@@ -42,15 +50,20 @@ public class TestWindow extends Shell {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-	
-	// this is a comment that should stay!
 	protected DataBindingContext initDataBindings() {
-		
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(text);
+		IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(firstTextTrial);
 		IObservableValue nameDataObserveValue = PojoProperties.value("name").observe(myData);
 		bindingContext.bindValue(observeTextTextObserveWidget, nameDataObserveValue, null, null);
+		//
+		IObservableValue observeTextGeoTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(geoText);
+		IObservableValue wpMyDataObserveValue = PojoProperties.value("wp").observe(myData);
+		UpdateValueStrategy geot2m = new UpdateValueStrategy();
+		geot2m.setConverter(new GeoT2MConverter());
+		UpdateValueStrategy geom2t = new UpdateValueStrategy();
+		geom2t.setConverter(new GeoM2TConverter());
+		bindingContext.bindValue(observeTextGeoTextObserveWidget, wpMyDataObserveValue, geot2m, geom2t);
 		//
 		return bindingContext;
 	}
