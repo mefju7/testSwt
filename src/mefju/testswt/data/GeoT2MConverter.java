@@ -3,7 +3,6 @@ package mefju.testswt.data;
 import java.util.List;
 
 import mefju.testswt.TestData.WP;
-import mefju.testswt.data.Iso6709.GeoPoint;
 
 import org.eclipse.core.databinding.conversion.Converter;
 
@@ -20,10 +19,10 @@ public class GeoT2MConverter extends Converter {
 		if(fromObject instanceof String)
 		{
 			String str = (String)fromObject;
-			List<GeoPoint> parsed = Iso6709.parse(str);
+		 List<GeoPoint> parsed = Iso6709.parse(str);
 			if(parsed.size()>0)
 			{
-				 GeoPoint wp1 = parsed.get(0);
+				 IGeoPoint wp1 = (IGeoPoint) parsed.get(0);
 				 return new WP(wp1.getLatitude(),wp1.getLongitude());
 			}
 		}

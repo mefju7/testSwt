@@ -1,5 +1,7 @@
 package mefju.testswt.data;
 
+
+
 import mefju.testswt.TestData.WP;
 
 import org.eclipse.core.databinding.conversion.Converter;
@@ -16,7 +18,7 @@ public class GeoM2TConverter extends Converter {
 		// TODO Auto-generated method stub
 		if (fromObject instanceof WP) {
 			WP wp = (WP) fromObject;
-			return Iso6709.print(wp.getLatitude(), wp.getLongitude());
+			return Iso6709.print(wp.getLatitude(), wp.getLongitude(),Iso6709.Format.DMS_DEC);
 		}
 		return null;
 	}
