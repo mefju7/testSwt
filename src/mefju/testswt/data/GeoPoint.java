@@ -1,47 +1,43 @@
 package mefju.testswt.data;
 
 public class GeoPoint implements IGeoPoint {
-	/* (non-Javadoc)
-	 * @see mefju.testswt.data.IGeoPoint#getLatitude()
+	/**
+	 * @param latitude
+	 * @param longitude
 	 */
-	@Override
-	public double getLatitude() {
-		return latitude;
+	public GeoPoint(double latitude, double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
-	/* (non-Javadoc)
-	 * @see mefju.testswt.data.IGeoPoint#getLongitude()
-	 */
+	private double latitude,longitude;
+
 	@Override
 	public double getLongitude() {
 		return longitude;
 	}
 
-	
-	public GeoPoint(double latitude, double longitude) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-
-	}
-
-	private double latitude;
-	/* (non-Javadoc)
-	 * @see mefju.testswt.data.IGeoPoint#setLatitude(double)
-	 */
-	@Override
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	/* (non-Javadoc)
-	 * @see mefju.testswt.data.IGeoPoint#setLongitude(double)
-	 */
 	@Override
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	private double longitude;
+	@Override
+	public double getLatitude() {
+		return latitude;
+	}
 
+	@Override
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	
+	public static class Builder implements IGeoPoint.Builder{
+		@Override
+		public IGeoPoint create(double latitude, double longitude) {
+			// TODO Auto-generated method stub
+			return new GeoPoint(latitude,longitude);
+		}
+		
+	}
 }

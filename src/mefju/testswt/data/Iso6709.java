@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import mefju.testswt.data.GeoPoint.Builder;
+
+
 public class Iso6709 {
 	private static DecimalFormat dnf=null;
 
@@ -31,10 +34,10 @@ public class Iso6709 {
 			.compile("([+-])(\\d{2})(\\d{2}(\\d{2})?)?(\\.\\d*)?([+-])(\\d{3})(\\d{2}(\\d{2})?)?(\\.\\d*)?((\\d(\\.\\d*)?)?CRS([^/]*))?(/)?");
 	private static final String MinusSign = "-";
 
-	public static   List<GeoPoint> parse(String s)
-
+	public static <T extends IGeoPoint.Builder> List<IGeoPoint> parse(T builder, String s)
 	{
-		List<GeoPoint> gpList = new ArrayList<>();
+		//	public static   List<GeoPoint> parse(String s)	{
+		List<IGeoPoint> gpList = new ArrayList<>();
 		Matcher m = pattern.matcher(s);
 		NumberFormat nf = NumberFormat.getInstance(Locale.US);
 		while (m.find()) {
@@ -93,8 +96,7 @@ public class Iso6709 {
 					longitude = -longitude;
 				@SuppressWarnings("unused")
 				String crs = m.group(12);
-				GeoPoint ngp = new GeoPoint(latitude, longitude);
-				gpList.add(ngp);
+				gpList.add(builder.create(latitude, longitude));
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -156,6 +158,7 @@ public class Iso6709 {
 		formatter.close();
 		return sb.toString();
 	}
+	
 	public static void main(String[] args)
 	{
 		String[] strs2match = new String[] { "+10-005/", // just degrees
@@ -164,10 +167,12 @@ public class Iso6709 {
 				"+64.478-01025.58CRSWGS_84/", // mixed case
 				"-1056.3333+012.56789/+6447.8-01025.58/", // 2 coordinates
 		};
+		Builder b = new GeoPoint.Builder();
 		for(String str: strs2match)
 		{
+			
 			System.out.println("parsing '"+str+"'");
-			List<GeoPoint> gpl = parse(str);
+			List<IGeoPoint> gpl = parse(b, str);
 			for(IGeoPoint wp: gpl)
 			{
 				System.out.println("d_dec: "+print(wp.getLatitude(),wp.getLongitude(),Format.D_DEC));
