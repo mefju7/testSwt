@@ -91,6 +91,7 @@ public class Iso6709 {
 				longitude += nf.parse(londeg).doubleValue();
 				if (MinusSign.equals(lonsign))
 					longitude = -longitude;
+				@SuppressWarnings("unused")
 				String crs = m.group(12);
 				GeoPoint ngp = new GeoPoint(latitude, longitude);
 				gpList.add(ngp);
@@ -145,7 +146,7 @@ public class Iso6709 {
 				int lngmin = (int)Math.floor(longitude);
 				longitude-=lngmin;
 				longitude*=60;
-				String s = Double.toString(longitude);
+//				String s = Double.toString(longitude);
 				if(dnf!=null)
 					formatter.format("%c%02d%02d%s%c%03d%02d%s/", latSign,latdeg,latmin,dnf.format(latitude),lngSign,lngdeg,lngmin,dnf.format(longitude));
 				else
