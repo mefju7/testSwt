@@ -4,7 +4,7 @@ import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.widgets.Display;
 
-public class BindingTestWindow {
+public class AppMain {
 
 	public static void main(String[] args) throws Exception {
 
@@ -16,7 +16,7 @@ public class BindingTestWindow {
 			public void run() {
 				// TODO Auto-generated method stub
 				try {
-					TestWindow tw = new TestWindow(display);
+					TableWindow tw = new TableWindow(display);
 					tw.open();
 					tw.layout();
 					// message loop
