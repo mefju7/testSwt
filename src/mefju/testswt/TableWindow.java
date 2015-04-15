@@ -1,30 +1,24 @@
 package mefju.testswt;
 
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.TrayItem;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.jface.viewers.TableViewerColumn;
 
 public class TableWindow extends Shell {
-	private Table table;
-	private Table table_1;
-	/**
-	 * @wbp.nonvisual location=33,479
-	 */
+	
+	
+	private Table tblRoutes;
+	private Table tblWaypoints;
 	
 	
 
@@ -41,33 +35,41 @@ public class TableWindow extends Shell {
 		Label lblWaypoints = new Label(this, SWT.NONE);
 		lblWaypoints.setText("Waypoints");
 		
-		table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
+		TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+		tblRoutes = tableViewer.getTable();
+		tblRoutes.setLinesVisible(true);
+		tblRoutes.setHeaderVisible(true);
+		tblRoutes.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		TableColumn tblclmnFromPort = new TableColumn(table, SWT.LEFT);
-		tblclmnFromPort.setWidth(100);
-		tblclmnFromPort.setText("From Port");
+		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+		TableColumn tbclFromLocation = tableViewerColumn.getColumn();
+		tbclFromLocation.setWidth(100);
+		tbclFromLocation.setText("From Location");
 		
-		TableColumn tblclmnToPort = new TableColumn(table, SWT.NONE);
-		tblclmnToPort.setWidth(100);
-		tblclmnToPort.setText("To Port");
+		TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);
+		TableColumn tblclToLocation = tableViewerColumn_1.getColumn();
+		tblclToLocation.setWidth(100);
+		tblclToLocation.setText("To Location");
 		
-		table_1 = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-		table_1.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		table_1.setHeaderVisible(true);
-		table_1.setLinesVisible(true);
 		
-		TableColumn tableColumn = new TableColumn(table_1, SWT.NONE);
-		tableColumn.setWidth(100);
+		TableViewer tableViewer_1 = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+		tblWaypoints = tableViewer_1.getTable();
+		tblWaypoints.setLinesVisible(true);
+		tblWaypoints.setHeaderVisible(true);
+		tblWaypoints.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer_1, SWT.NONE);
+		TableColumn tableColumn = tableViewerColumn_2.getColumn();
+		tableColumn.setWidth(40);
 		tableColumn.setText("#");
 		
-		TableColumn tblclmnLatitude = new TableColumn(table_1, SWT.NONE);
+		TableViewerColumn tableViewerColumn_3 = new TableViewerColumn(tableViewer_1, SWT.NONE);
+		TableColumn tblclmnLatitude = tableViewerColumn_3.getColumn();
 		tblclmnLatitude.setWidth(100);
 		tblclmnLatitude.setText("Latitude");
 		
-		TableColumn tblclmnLongitude = new TableColumn(table_1, SWT.NONE);
+		TableViewerColumn tableViewerColumn_4 = new TableViewerColumn(tableViewer_1, SWT.NONE);
+		TableColumn tblclmnLongitude = tableViewerColumn_4.getColumn();
 		tblclmnLongitude.setWidth(100);
 		tblclmnLongitude.setText("Longitude");
 		
